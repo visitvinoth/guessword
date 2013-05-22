@@ -1,0 +1,88 @@
+<html>
+	<head>
+        <title> Guess Word </title>
+	</head>
+	<body onload="onLoad();" style="text-align: center;">
+        <h1>Guess Word</h1>
+        <table border = "1" id = "puzzle_grid">
+            <tr id="puzzle_grid_row">
+            </tr>
+        </table>
+
+        <table width="50%" border="1" STYLE="TEXT-ALIGN: CENTER;">
+            <tr>
+                <td onclick = "letterClicked('A', this)">A</td>
+                <td onclick = "letterClicked('B', this)">B</td>
+                <td onclick = "letterClicked('C', this)">C</td>
+                <td onclick = "letterClicked('D', this)">D</td>
+                <td onclick = "letterClicked('E', this)">E</td>
+            </tr>
+            <tr>
+                <td onclick = "letterClicked('F', this)">F</td>
+                <td onclick = "letterClicked('G', this)">G</td>
+                <td onclick = "letterClicked('H', this)">H</td>
+                <td onclick = "letterClicked('I', this)">I</td>
+                <td onclick = "letterClicked('J', this)">J</td>
+            </tr>
+            <tr>
+                <td onclick = "letterClicked('K', this)">K</td>
+                <td onclick = "letterClicked('L', this)">L</td>
+                <td onclick = "letterClicked('M', this)">M</td>
+                <td onclick = "letterClicked('N', this)">N</td>
+                <td onclick = "letterClicked('O', this)">O</td>
+            </tr>
+            <tr>
+                <td onclick = "letterClicked('P', this)">P</td>
+                <td onclick = "letterClicked('Q', this)">Q</td>
+                <td onclick = "letterClicked('R', this)">R</td>
+                <td onclick = "letterClicked('S', this)">S</td>
+                <td onclick = "letterClicked('T', this)">T</td>
+            </tr>
+            <tr>
+                <td onclick = "letterClicked('U', this)">U</td>
+                <td onclick = "letterClicked('V', this)">V</td>
+                <td onclick = "letterClicked('W', this)">W</td>
+                <td onclick = "letterClicked('X', this)">X</td>
+                <td onclick = "letterClicked('Y', this)">Y</td>
+            </tr>
+            <tr>
+                <td onclick = "letterClicked('Z')">Z</td>
+                <td COLSPAN="4" onclick = "letterClicked('?')">?</td>
+            </tr>
+        </table>
+	</body>
+	<script type = "text/javascript">
+		var word_list = ["BDSFT","BEVMU","BEWJDF","BSSBOHFNFOU","BUUFNQU","BVHVTU","BVUVNO","CPSEFS","CSFFAAF","CSJDL","DBMN","DBOBM","DBTFZ","DBTU","DIPTF","DMBXT","DPBDI","DPOTUBOUMZ","DPOUSBTU","DPPLJFT","DVTUPNT","EBNBHF","EBOOZ","EFFQMZ","EFQUI","EJTDVTTJPO","EPMM","EPOLFZ","FHZQU","FMMFO","FTTFOUJBM","FYDIBOHF","FYJTU","FYQMBOBUJPO","GBDJOH","GJMN","GJOFTU","GJSFQMBDF","GMPBUJOH","GPMLT","GPSU","HBSBHF","HSBCCFE","HSBOENPUIFS","IBCJU","IBQQJMZ","IBSSZ","IFBEJOH","IVOUFS","JMMJOPJT","JNBHF","JOEFQFOEFOU","JOTUBOU","KBOVBSZ","LJET","MBCFM","MFF","MVOHT","NBOVGBDUVSJOH","NBSUJO","NBUIFNBUJDT","NFMUFE","NFNPSZ","NJMM","NJTTJPO","NPOLFZ","NPVOU","NZTUFSJPVT","OFJHICPSIPPE","OPSXBZ","OVUT","PDDBTJPOBMMZ","PGGJDJBM","PVSTFMWFT","QBMBDF","QFOOTZMWBOJB","QIJMBEFMQIJB","QMBUFT","QPFUSZ","QPMJDFNBO","QPTJUJWF","QPTTJCMZ","QSBDUJDBM","QSJEF","QSPNJTFE","SFDBMM","SFMBUJPOTIJQ","SFNBSLBCMF","SFRVJSF","SIZNF","SPDLZ","SVCCFE","SVTI","TBMF","TBUFMMJUFT","TBUJTGJFE","TDBSFE","TFMFDUJPO","TIBLF","TIBLJOH","TIBMMPX","TIPVU","TJMMZ","TJNQMFTU","TMJHIU","TMJQ","TMPQF","TPBQ","TPMBS","TQFDJFT","TQJO","TUJGG","TXVOH","UBMFT","UIVNC","UPCBDDP","UPZ","USBQ","USFBUFE","UVOF","VOJWFSTJUZ","WBQPS","WFTTFMT","XFBMUI","XPMG"];
+		var get_random_word_array = function(){
+			var random_index = Math.floor(Math.random()*125);
+			return decrypt(word_list[random_index]);
+		};
+		var onLoad = function(){
+			var word_array = get_random_word_array();
+			var puzzle_grid_row = document.getElementById('puzzle_grid_row');
+			for (var x = 0; x < word_array.length; x++){
+				var cell = puzzle_grid_row.insertCell(-1);
+				cell.setAttribute('data' , word_array[x]);
+                cell.style.width = '20px';
+                cell.innerHTML = " - ";
+                cell.style.textAlign = 'center';
+			}
+		};
+		var decrypt = function(encrypted_string){
+			var decrypted_string_array = [];
+			var encrypted_string_array = encrypted_string.split('');
+			for (var x = 0; x < encrypted_string_array.length; x++){
+				decrypted_string_array.push(String.fromCharCode(encrypted_string_array[x].charCodeAt(0) - 1));
+			}
+			return decrypted_string_array;
+		};
+        var letterClicked = function(character, element){
+            element.innerHTML = "*";
+            var puzzle_grid_row = document.getElementById('puzzle_grid_row');
+            for(var i=0; i< puzzle_grid_row.childElementCount; i++ )
+            if(puzzle_grid_row.children[i].attributes.data.value ==  character){
+                puzzle_grid_row.children[i].innerHTML = character;
+            }
+        };
+	</script>
+</html>
